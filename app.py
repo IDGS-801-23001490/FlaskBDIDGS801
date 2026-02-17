@@ -5,16 +5,11 @@ from flask import g
 from config import DevelopmentConfig 
 from models import db, Alumnos       
 from forms import UserForm2
-
+import forms
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 csrf = CSRFProtect(app) 
-
-db.init_app(app)
-
-with app.app_context():
-    db.create_all()
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -23,14 +18,16 @@ def page_not_found(e):
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html")
+    create_form=forms.UserForm2(request.form)
+    #ORM select * from alumnos
+    alumno = Alumnos.query.all()
+    return render_template("index.html", form=create_form,alumnos=alumno)
 
 @app.route("/Alumnos", methods=["GET", "POST"])
-def Alumnos():
+def registrar_alumnos():
     form = UserForm2(request.form)
     if request.method == "POST" and form.validate():
         nuevo_alumno = Alumnos(
-            id=form.id.data,
             nombre=form.nombre.data,
             apaterno=form.apaterno.data,
             email=form.correo.data
@@ -39,11 +36,13 @@ def Alumnos():
         db.session.add(nuevo_alumno)
         db.session.commit()
         
-        flash("¡Alumno registrado con éxito!")
-        return redirect(url_for('Alumnos'))
+        return redirect(url_for('index')) 
         
     return render_template("Alumnos.html", form=form)
 
 if __name__ == '__main__':
+    csrf.init_app(app)
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
-

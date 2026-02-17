@@ -4,8 +4,6 @@ from wtforms import EmailField
 from wtforms import validators
 
 class UserForm2(Form):
-    id=IntegerField('id',
-    [validators.number_range(min=1, max=20, message='valor no valido')])
     nombre=StringField("nombre",[
         validators.DataRequired(message="El nombre es requerido"),
         validators.Length(min=4,max=20,message="requiere min=4 max=20")
@@ -17,4 +15,3 @@ class UserForm2(Form):
         validators.Email(message="El correo es requerido"),
         validators.Email(message="Ingrese un correo valido")
     ])
-

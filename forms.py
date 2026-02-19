@@ -4,6 +4,7 @@ from wtforms import EmailField
 from wtforms import validators
 
 class UserForm2(Form):
+    id = IntegerField('id')
     nombre=StringField("nombre",[
         validators.DataRequired(message="El nombre es requerido"),
         validators.Length(min=4,max=20,message="requiere min=4 max=20")

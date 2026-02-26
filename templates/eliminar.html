@@ -3,35 +3,44 @@
 {% block container %}
 
 <div class="max-w-screen-xl mx-auto p-4 mt-8">
-    <h1 class="text-2xl font-bold mb-6 text-gray-800">Eliminar alumno</h1>
+    <h1 class="text-3xl font-bold mb-6 text-gray-800 text-center">Eliminar alumno</h1>
 
-    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto">
-        <div class="space-y-4 mb-8">
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto border border-gray-100">
+        <div class="text-center mb-6">
+            <p class="text-lg text-gray-600">¿Estás seguro de que deseas eliminar permanentemente a este alumno?</p>
+        </div>
+
+        <div class="space-y-4 mb-8 bg-gray-50 p-4 rounded-lg">
             <div>
-                <span class="font-semibold text-gray-600 block">Nombre:</span>
-                <p class="text-gray-900">{{ form.nombre.data }}</p>
+                <span class="font-semibold text-gray-600 block text-sm uppercase">Nombre(s):</span>
+                <p class="text-gray-900 font-medium">{{ alumno.nombre }}</p>
             </div>
             <div>
-                <span class="font-semibold text-gray-600 block">Apellido:</span>
-                <p class="text-gray-900">{{ form.apaterno.data }}</p>
+                <span class="font-semibold text-gray-600 block text-sm uppercase">Apellidos:</span>
+                <p class="text-gray-900 font-medium">{{ alumno.apellidos }}</p>
             </div>
             <div>
-                <span class="font-semibold text-gray-600 block">Correo:</span>
-                <p class="text-gray-900">{{ form.correo.data }}</p>
+                <span class="font-semibold text-gray-600 block text-sm uppercase">Correo:</span>
+                <p class="text-gray-900 font-medium">{{ alumno.email }}</p>
+            </div>
+            <div>
+                <span class="font-semibold text-gray-600 block text-sm uppercase">Teléfono:</span>
+                <p class="text-gray-900 font-medium">{{ alumno.telefono or '—' }}</p>
             </div>
         </div>
 
         <form method="POST" class="flex flex-col sm:flex-row gap-4 justify-center">
-            {{ form.hidden_tag() }}
-            {{ form.id() }}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+            <input type="hidden" name="id" value="{{ form.id.data }}">
 
             <button type="submit"
-                class="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg text-base px-6 py-3 focus:ring-4 focus:ring-red-300 transition-colors duration-200">
+                class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-base px-6 py-3 focus:ring-4 focus:ring-red-300 transition-colors duration-200">
                 Eliminar
             </button>
 
             <a href="{{ url_for('index') }}"
-                class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg text-base px-6 py-3 text-center transition-colors duration-200">
+                class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-lg text-base px-6 py-3 text-center transition-colors duration-200">
                 Cancelar
             </a>
         </form>

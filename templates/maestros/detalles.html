@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="flex justify-center items-center min-h-[50vh] mt-10">
+    <div
+        class="flex flex-col md:flex-row max-w-2xl w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
+        <div class="md:w-1/3 bg-gradient-to-br from-indigo-700 to-blue-500 flex justify-center items-center p-6">
+            <img class="rounded-full w-32 h-32 bg-white object-cover border-4 border-white shadow-lg"
+                src="https://api.dicebear.com/9.x/initials/svg?seed={{ maestro.nombre }}" alt="Avatar">
+        </div>
+        <div class="w-full md:w-2/3 p-8 flex flex-col justify-between">
+            <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-6 border-b pb-2">Información del Maestro</h3>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-3 gap-4">
+                        <span class="font-semibold text-gray-500">Matrícula:</span>
+                        <span class="col-span-2 text-gray-900 font-medium">{{ maestro.matricula }}</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <span class="font-semibold text-gray-500">Nombre:</span>
+                        <span class="col-span-2 text-gray-900">{{ maestro.nombre }} {{ maestro.apellidos }}</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <span class="font-semibold text-gray-500">Especialidad:</span>
+                        <span class="col-span-2 text-gray-900">{{ maestro.especialidad }}</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <span class="font-semibold text-gray-500">Email:</span>
+                        <span class="col-span-2 text-blue-600 font-medium">{{ maestro.email }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-end">
+                <a href="{{ url_for('maestros.index') }}"
+                    class="px-5 py-2.5 text-sm font-medium text-white bg-gray-800 rounded-lg hover:bg-gray-900">Regresar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

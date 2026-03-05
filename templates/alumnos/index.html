@@ -22,9 +22,8 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3">Nombre</th>
-                    <th scope="col" class="px-6 py-3">Apellidos</th>
+                    <th scope="col" class="px-6 py-3">Apellido Paterno</th>
                     <th scope="col" class="px-6 py-3">Email</th>
-                    <th scope="col" class="px-6 py-3">Teléfono</th>
                     <th scope="col" class="px-6 py-3">Creado</th>
                     <th scope="col" class="px-6 py-3 text-center">Acciones</th>
                 </tr>
@@ -33,9 +32,8 @@
                 {% for alum in alumnos %}
                 <tr class="odd:bg-white even:bg-gray-50 border-b hover:bg-gray-100">
                     <td class="px-6 py-4 font-medium text-gray-900">{{ alum.nombre }}</td>
-                    <td class="px-6 py-4">{{ alum.apellidos }}</td>
+                    <td class="px-6 py-4">{{ alum.apaterno }}</td>
                     <td class="px-6 py-4 text-blue-600">{{ alum.email }}</td>
-                    <td class="px-6 py-4">{{ alum.telefono or '—' }}</td>
                     <td class="px-6 py-4">{{ alum.created_date.strftime('%d/%m/%Y') }}</td>
 
                     <td class="px-6 py-4 text-center whitespace-nowrap">
@@ -49,7 +47,7 @@
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="6" class="px-6 py-8 text-center text-gray-500">No hay alumnos registrados aún.</td>
+                    <td colspan="5" class="px-6 py-8 text-center text-gray-500">No hay alumnos registrados aún.</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block container %}
+<div class="max-w-md mx-auto mt-10 p-6 bg-white border border-gray-200 rounded-lg shadow-sm w-full">
+    <h2 class="text-2xl font-bold mb-6 text-gray-900">Registro de Curso</h2>
+
+    <form method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="nombre" id="nombre" value="{{ form.nombre.data or '' }}"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" " required />
+            <label for="nombre"
+                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Nombre del Curso
+            </label>
+            {% if form.nombre.errors %}
+            {% for error in form.nombre.errors %}
+            <p class="text-red-500 text-xs mt-1">{{ error }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="descripcion" id="descripcion" value="{{ form.descripcion.data or '' }}"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" " />
+            <label for="descripcion"
+                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Descripción
+            </label>
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+            <label for="maestro_id" class="block mb-2 text-sm font-medium text-gray-500">Maestro Asignado</label>
+            <select name="maestro_id" id="maestro_id"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                {% for value, label in form.maestro_id.choices %}
+                <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+            {% if form.maestro_id.errors %}
+            {% for error in form.maestro_id.errors %}
+            <p class="text-red-500 text-xs mt-1">{{ error }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="flex items-center gap-4 mt-6">
+            <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                Registrar Curso
+            </button>
+            <a href="{{ url_for('cursos.index') }}"
+                class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

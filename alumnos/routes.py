@@ -6,7 +6,6 @@ from . import alumnos
 @alumnos.route("/index")
 def index():
     alumnos_list = Alumnos.query.all()
-    # Apuntamos a la subcarpeta alumnos/
     return render_template("alumnos/index.html", alumnos=alumnos_list)
 
 @alumnos.route("/registrar", methods=["GET", "POST"])
@@ -16,9 +15,8 @@ def registrar_alumnos():
     if request.method == "POST" and form.validate():
         nuevo_alumno = Alumnos(
             nombre=form.nombre.data,
-            apellidos=form.apellidos.data,
-            email=form.email.data,
-            telefono=form.telefono.data
+            apaterno=form.apaterno.data, 
+            email=form.email.data
         )
         try:
             db.session.add(nuevo_alumno)
@@ -52,15 +50,13 @@ def modificar():
     if request.method == 'GET':
         form.id.data = alumno.id
         form.nombre.data = alumno.nombre
-        form.apellidos.data = alumno.apellidos
+        form.apaterno.data = alumno.apaterno 
         form.email.data = alumno.email
-        form.telefono.data = alumno.telefono
     
     if request.method == 'POST' and form.validate():
         alumno.nombre = form.nombre.data
-        alumno.apellidos = form.apellidos.data
+        alumno.apaterno = form.apaterno.data 
         alumno.email = form.email.data
-        alumno.telefono = form.telefono.data
         
         try:
             db.session.commit()
@@ -83,9 +79,8 @@ def eliminar():
         alumno = Alumnos.query.get_or_404(id_alum)
         form.id.data = alumno.id
         form.nombre.data = alumno.nombre
-        form.apellidos.data = alumno.apellidos
+        form.apaterno.data = alumno.apaterno 
         form.email.data = alumno.email
-        form.telefono.data = alumno.telefono
         
         return render_template("alumnos/eliminar.html", form=form, alumno=alumno)
 
